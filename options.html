@@ -1,17 +1,9 @@
-<!--
-  Copyright (c) 2012 The Chromium Authors. All rights reserved.
-  Use of this source code is governed by a BSD-style license that can be
-  found in the LICENSE file.
-
-  Brian Kennish <bkennish@chromium.org>
-
-  An option page for configuring notifications.
--->
 <!doctype html>
 <html>
   <head>
     <title>Notification Demo</title>
     <link href="style.css" rel="stylesheet" type="text/css">
+    <script src="jquery-3.2.1.min.js"></script>
     <script src="options.js"></script>
   </head>
   <body>
@@ -21,7 +13,7 @@
     </h1>
     <h2>Options</h2>
     <form id="options">
-      <input type="checkbox" name="isActivated" checked>
+      <input type="checkbox" name="isActivated"/>
       Display a notification every
       <select name="frequency">
         <option>1</option>
@@ -36,9 +28,62 @@
         <option>30</option>
       </select>
       minute(s).
-
-
-
+      <div>
+        <input type="checkbox" name="btccny" />
+        btccny
+      </div>
+      <div>
+        <input type="checkbox" name="ethcny">
+        ethcny
+      </div>
+      <div>
+        <input type="checkbox" name="dgdcny"/>
+        dgdcny
+      </div>
+      <div>
+        <input type="checkbox" name="btscny"/>
+        btscny
+      </div>
+      <div>
+        <input type="checkbox" name="dcscny"/>
+        dcscny
+      </div>
+      <div>
+        <input type="checkbox" name="sccny"/>
+        sccny
+      </div>
+      <div>
+        <input type="checkbox" name="etccny"/>
+        etccny
+      </div>
+      <div>
+        <input type="checkbox" name="1stcny"/>
+        1stcny
+      </div>
+      <div>
+        <input type="checkbox" name="repcny"/>
+        repcny
+      </div>
+      <div>
+        <input type="checkbox" name="anscny"/>
+        anscny
+      </div>
+      <div>
+        <input type="checkbox" name="zeccny"/>
+        zeccny
+      </div>
+      <div>
+        <input type="checkbox" name="zmccny"/>
+        zmccny
+      </div>
+      <div>
+        <input type="checkbox" name="gntcny"/>
+        gntcny
+      </div>
+      <div>
+        <input type="checkbox" name="qtumcny"/>
+        qtumcny
+      </div>
     </form>
   </body>
 </html>

@@ -14,7 +14,7 @@ if(!window.Storage || !window.Storage.bit){
 options = {
     type : "list",
     iconUrl: "48.png",
-    title: "List Notification",
+    title: "Notification",
     message: "List of items in a message",
 }
 
@@ -83,7 +83,7 @@ function show() {
     var bitData = yield init();
     jQuery.each(bitData, function(k, v){
       if(!window.Storage.bit[k]){
-        window.Storage.bit[k]= {isActivated: true, before: 0.00, last: 0.00 }
+        window.Storage.bit[k]= {before: 0.00, last: 0.00 }
       }
       window.Storage.bit[k]['before'] = window.Storage.bit[k].last
       window.Storage.bit[k]['last'] = v.ticker.last
@@ -92,20 +92,63 @@ function show() {
 
     var items = []
     for (var k in window.Storage.bit) {
-      var v = window.Storage.bit[k]
-      if(v.isActivated){
+      if(localStorage[k] && JSON.parse(localStorage[k])){
+        var v = window.Storage.bit[k]
         var data = yield loadData("yunbi"+k);
         var result = calculator(data)
+        console.log(k, ": ",JSON.stringify(sta(parseFloat(v.last), data.bids, data.asks).map(function(e){ return [e.index, e.vol] })))
         items.push(buildItem(k, v.last, v.before, result.buy, result.sell, result.total))
       }
     }
     options.items = items
-    console.log(options);
     chrome.notifications.create("id", options, function(){});
   }).catch(onerror);
 }
 
 
+function sta(last, indata, outdata){
+  var result = [],
+    min = indata[0][0],
+    max = outdata[0][0],
+    frequency = last * 0.005,
+    index = last
+  while(index > min){
+    result.unshift({
+      index: index, vol: 0
+    })
+    index = (index - frequency)
+  }
+  index = last
+  while(index < max){
+    result.push({
+      index: index, vol: 0
+    })
+    index = (index + frequency)
+  }
+  for (var i=0; i < indata.length-1; i++) {
+    var _idx = indata[i][0],
+        _vol = indata[i][1]
+    for(var el in result){
+      if(result[el].index >= _idx){
+        result[el].vol = result[el].vol + _vol
+        break;
+      }
+    }
+  }
+
+  for (var i=0; i < outdata.length-1; i++) {
+    var _idx = outdata[i][0],
+        _vol = outdata[i][1]
+    for(var el in result){
+      if(result[el].index >= _idx){
+        result[el].vol = result[el].vol - _vol
+        break;
+      }
+    }
+  }
+
+  return result
+}
 
 // Conditionally initialize the options.
 if (!localStorage.isInitialized) {
@@ -132,5 +175,5 @@ if (window.Notification) {
       show();
       interval = 0;
     }
-  }, 10000);
+  }, 60000);
 }
