@@ -7,10 +7,11 @@
   "permissions": [
     "notifications",
     "https://plugin.sosobtc.com/*",
-    "https://yunbi.com/*"
+    "https://yunbi.com/*",
+    "storage"
   ],
   "options_page": "options.html",
-  "background": { "scripts": ["jquery-3.2.1.min.js", "background.js"] },
+  "background": { "scripts": ["jquery-3.2.1.min.js", "index.js", "background.js"] },
   "manifest_version": 2,
 
   // crbug.com/134315
