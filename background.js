@@ -189,9 +189,9 @@ function showDrawLine(data){
   for(var i=1; i<data.length; i++){
     var persent = (data[i]/pre - 1).toFixed(3)
     if(data[i] > pre){
-      result.push('[c="color: green"]'+data[i].toFixed(5)+'[c]'+'||[c="color: green"]'+persent+'[c]')
+      result.push('[c="color: green"]'+data[i].toFixed(5)+'[c]'+'([c="color: green"]'+persent+'[c])')
     }else{
-      result.push('[c="color: red"]'+data[i].toFixed(5)+'[c]'+'||[c="color: red"]'+persent+'[c]')
+      result.push('[c="color: red"]'+data[i].toFixed(5)+'[c]'+'([c="color: red"]'+persent+'[c])')
     }
     pre = data[i]
   }
@@ -258,6 +258,6 @@ if (window.Notification) {
       show();
       interval = 0;
     }
-  }, 60000);
+  }, 10000);
 }
 
